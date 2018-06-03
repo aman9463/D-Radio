@@ -1,0 +1,327 @@
+
+
+        <div class="content cf">
+            <section>
+                <h1>SimpleWebRTC</h1>
+                <h3>Use Edge's ORTC API and the WebRTC APIs in Chrome and Firefox to make cross-browser conference calls.</h3>
+                <div id="requirements">
+                    <p>To use this demo, you'll need the most recent version of the Edge browser, Chrome or Firefox , and a microphone attached to your Windows 10 device.</p>
+                </div>
+                <div id="supportWarning" class="block-note--error">
+                    <p>Warning - Your browser does not support the ORTC or WebRTC APIs. Please switch to a PC with a recent version of Windows 10 and try again.</p>
+                </div>
+                <div id="microphoneWarning" class="block-note--error">
+                    <p>Error - we can't find a microphone attached to your PC. Please switch to a PC with a microphone attached and try again.</p>
+                </div>
+            </section>
+            <section id="roomContainer" class="cf">
+                <h4 id="subtitle"></h4>
+               <!--  <form id="createRoom">
+                    <button disabled type="submit" class="button">Create conference</button>
+                </form> -->
+
+                <div class='peerContainer local'>
+                    <div class="local-details">
+                        <input id="nickInput" placeholder="You"/>
+                        <audio id="localAudio" controls oncontextmenu="return false;" disabled></audio>
+                        <img id="snapshot" src="<%=current_user.profile_image%>" class="avatar"/>
+                        <video id="snapshotvideo" class="avatar"></video> 
+                        <div id='countdown'></div>
+                        <!-- add class of 'muted' when so -->
+                        <a class="button button-small button-mute">Mute</a>
+
+                    </div>
+       <div id="meters">
+      <div id="instant">
+        <div class="label">Instant: </div>
+        <meter  max="1" value="10"></meter>
+        <div class="value" style="display: none;"></div>
+      </div>
+    
+    </div>
+
+                    <div class="local-controls">
+                        <!-- <button class="button button-small" id="snapshotButton">Take a snapshot</button> -->
+                    </div>
+                </div>
+                <div id="remotes">sd</div>
+            </section>
+       
+        </div>
+      <script type="text/javascript">
+          // grab the room from the URL
+var room;
+room = "<%=params[:id]%>"
+var framed = window.self !== window.top;
+var hasroom = framed && document.referrer && document.referrer.split('?').length > 1;
+// if (framed) {
+//     room = document.referrer && document.referrer.split('?')[1];
+// } else {
+//     room = window.parent.location && window.parent.location.search.split('?')[1];
+// }
+
+var avatar = '<%=current_user.profile_image%>';
+var hasCameras = false;
+var nick = '<%=current_user.name%>'
+var webrtc;
+
+// for simplistic metrics gathering
+function track(name, info) {
+    if (webrtc && webrtc.connection) {
+        webrtc.connection.emit('metrics', name, info || {});
+    }
+}
+
+function setRoom(name) {
+  
+    document.getElementById('subtitle').textContent =  'Link to join: ' + (framed ? document.referrer + (hasroom ? '' : '?' + name) : window.parent.location.href);
+}
+
+
+
+
+
+
+
+function doJoin(room) {
+    webrtc.startLocalVideo();
+    webrtc.createRoom(room, function (err, name) {
+        var newUrl = (framed ? document.referrer : window.parent.location.pathname) + '?' + room;
+        if (!err) {
+            if (!framed) window.parent.history.replaceState({foo: 'bar'}, null, newUrl);
+            setRoom(room);
+        } else {
+            console.log('error', err, room);
+            if (err === 'taken') {
+                room = generateRoomName();
+                doJoin(room);
+            }
+        }
+    });
+}
+
+var queryGum = false;
+if (room) {
+    setRoom(room);
+    queryGum = true;
+} else {
+    room = generateRoomName();
+    document.querySelector('form#createRoom>button').disabled = false;
+    document.getElementById('createRoom').onsubmit = function () {
+        document.getElementById('createRoom').disabled = true;
+        document.querySelector('form#createRoom>button').textContent = 'Cresating conference...';
+        room = room.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
+        doJoin(room);
+        return false; 
+    };
+}
+
+function GUM() {
+    webrtc = new SimpleWebRTC({
+        // we don't do video
+        localVideoEl: '',
+        remoteVideosEl: '',
+        autoRequestMedia: false,
+        enableDataChannels: false,
+        media: {
+            audio: true,
+            video: false
+        },
+        receiveMedia: { // FIXME: remove old chrome <= 37 constraints format
+            offerToReceiveAudio: 1,
+            offerToReceiveVideo: 0
+        },
+    });
+
+    webrtc.on('localStream', function(stream) {
+        var localAudio = document.getElementById('localAudio');
+        localAudio.disabled = false;
+        localAudio.volume = 0;
+        //localAudio.srcObject = stream; 
+        if (hasCameras) {
+            document.querySelector('.local-controls').style.visibility = 'visible';
+        }
+
+        var track = stream.getAudioTracks()[0];
+        var btn = document.querySelector('.local .button-mute');
+        btn.style.visibility = 'visible';
+        btn.onclick = function() {
+            track.enabled = !track.enabled;
+            btn.className = 'button button-small button-mute' + (track.enabled ? '' : ' muted');
+        };
+    });
+
+    webrtc.on('readyToCall', function () {
+        if (room) {
+            webrtc.joinRoom(room, function (err, res) {
+                if (err) return;
+                window.setTimeout(function () {
+
+                    if (avatar) {
+                        webrtc.sendToAll('avatar', {avatar: avatar});
+                        console.log(avatar);
+                    }
+                    if (nick) {
+                        webrtc.sendToAll('nickname', {nick: nick});
+                    }
+                }, 1000);
+            });
+        }
+    });
+
+    // working around weird simplewebrtc behaviour
+    webrtc.on('videoAdded', function (video, peer) {
+        document.querySelector('#container_' + webrtc.getDomId(peer) + '>div.remote-details').appendChild(video);
+    });
+    // called when a peer is created
+    webrtc.on('createdPeer', function (peer) {
+        console.log(peer);
+        var remotes = document.getElementById('remotes');
+        if (!remotes) return;
+
+        var container = document.createElement('div');
+        container.className = 'peerContainer';
+        container.id = 'container_' + webrtc.getDomId(peer);
+
+        // inner container
+        var d = document.createElement('div');
+        d.className = 'remote-details';
+        container.appendChild(d);
+
+        // // nickname
+        var nickname = document.createElement('div');
+        nickname.className = 'nick';
+        d.appendChild(nickname);
+
+        // avatar profile_image
+        var avatar = document.createElement('img');
+        avatar.className = 'avatar';
+        avatar.src = '/assets/avatar-default.png';
+        d.appendChild(avatar);
+
+        // audio element
+        // inserted later
+
+        // mute button
+        var mute = document.createElement('a');
+        mute.className = 'button button-small button-mute';
+        mute.appendChild(document.createTextNode('Mute'));
+        // mute.style.visibility = 'hidden';
+        // d.appendChild(mute);
+
+        mute.onclick = function() {
+          if (peer.videoEl.muted) { // unmute
+            mute.className = 'button button-small button-mute';
+          } else { // mute
+            mute.className = 'button button-small button-mute muted';
+          }
+          peer.videoEl.muted = !peer.videoEl.muted;
+        };
+
+        if (peer && peer.pc) {
+            peer.firsttime = true;
+            peer.pc.on('iceConnectionStateChange', function (event) {
+                var state = peer.pc.iceConnectionState;
+                container.className = 'peerContainer p2p' +
+                    state.substr(0, 1).toUpperCase() +
+                    state.substr(1);
+                switch (state) {
+                case 'connected':
+                case 'completed':
+                    //audio.srcObject = peer.stream;
+                    mute.style.visibility = 'visible';
+                    if (peer.firsttime) {
+                        peer.firsttime = false;
+                        track('iceSuccess', {
+                            session: peer.sid,
+                            peerprefix: peer.browserPrefix,
+                            prefix: webrtc.capabilities.prefix,
+                            version: webrtc.capabilities.browserVersion
+                        });
+                    }
+                    break;
+                case 'closed':
+                    container.remove();
+                    break;
+                }
+            });
+        }
+        remotes.appendChild(container);
+    });
+
+    webrtc.connection.on('message', function (message) {
+        var peers = self.webrtc.getPeers(message.from, message.roomType);
+        if (!peers && peers.length > 0) return;
+        var peer = peers[0];
+
+        // FIXME: also send current avatar and nick to newly joining participants
+        var container = document.getElementById('container_' + webrtc.getDomId(peer));
+        if (message.type === 'nickname') {
+            container.querySelector('.nick').textContent = message.payload.nick;
+        } else if (message.type === 'avatar') {
+            container.querySelector('.avatar').src = message.payload.avatar;
+        } else if (message.type === 'offer') {
+            // update things
+            if (nick) {
+                peer.send('nickname', {nick: nick});
+            }
+            if (avatar) {
+                peer.send('avatar', {avatar: avatar});
+            }
+        }
+    });
+
+    // local p2p/ice failure
+    webrtc.on('iceFailed', function (peer) {
+        console.log('local fail', peer.sid);
+        track('iceFailed', {
+            source: 'local',
+            session: peer.sid,
+            peerprefix: peer.browserPrefix,
+            prefix: webrtc.capabilities.prefix,
+            version: webrtc.capabilities.browserVersion
+        });
+    });
+
+    // remote p2p/ice failure
+    webrtc.on('connectivityError', function (peer) {
+        console.log('remote fail', peer.sid);
+        track('iceFailed', {
+            source: 'remote',
+            session: peer.sid,
+            peerprefix: peer.browserPrefix,
+            prefix: webrtc.capabilities.prefix,
+            version: webrtc.capabilities.browserVersion
+        });
+    });
+
+    if (!(navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.RTCPeerConnection)) {
+        // FIXME: show "sorry, get a modern browser" (recommending Edge)
+        document.getElementById('supportWarning').style.display = 'block';
+        document.querySelector('form#createRoom>button').disabled = true;
+    } else if (navigator && navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        navigator.mediaDevices.enumerateDevices()
+        .then(function (devices) {
+            var cameras = devices.filter(function(device) { return device.kind === 'videoinput'; });
+            hasCameras = cameras.length;
+            var mics = devices.filter(function(device) { return device.kind === 'audioinput'; });
+            if (mics.length) {
+                document.getElementById('requirements').style.display = 'none';
+                if (queryGum) webrtc.startLocalVideo();
+            } else {
+                document.getElementById('microphoneWarning').style.display = 'block';
+                document.querySelector('form#createRoom>button').disabled = true;
+            }
+        });
+    }
+}
+
+$(document).ready(function(){
+//     GUM();
+// })
+
+// window.onload =  function(){
+   GUM();
+   callaudio();
+})
+      </script>
