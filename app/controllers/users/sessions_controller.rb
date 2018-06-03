@@ -28,7 +28,8 @@ def custom_login
       @user = User.new(
         name: params[:username],
         email: params[:username],
-        token: Digest::SHA256.hexdigest(params[:access_token]),
+        token: params[:access_token],
+        # token: Digest::SHA256.hexdigest(params[:access_token]),
         valid_till:  params[:expires_in]
       )
     end
