@@ -2,7 +2,7 @@
 lock '3.1.0'
 
 set :application, 'dradio'
-set :repo_url, 'https://github.com/aman9463/D-Radio.git'
+set :repo_url, 'git@github.com:aman9463/D-Radio.git'
 set :deploy_to, '/home/deploy/dradio'
 
 set :linked_files, %w{config/database.yml}
