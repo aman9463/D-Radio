@@ -51,3 +51,4 @@ namespace :deploy do
 
 
   after :publishing, :restart
+end
