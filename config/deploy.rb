@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock "3.10.2"
+lock "3.11.0"
 
 set :application, 'dradio'
 set :repo_url, 'git@github.com:aman9463/D-Radio.git'
