@@ -15,12 +15,11 @@ a.text-black,a.text-black:active,a.text-black:hover,a.text-black:visited,a.text-
   .padding-20{padding: 20px;}
   .padding-30{padding:30px;}
     .padding-5{padding: 5px;}
-  }
+  
   .padding-20{padding: 20px;}
     .padding-top-50{padding-top: 50px!important;}
   .padding-bottom-50{padding-bottom: 50px;}
-  .circular{border-radius: 50%;
-}
+  .circular{border-radius: 50%;}
 .font-bold{font-weight: bold;}
 .full-width{width: 100%;}
 .border-solid-1px-grey{border: 1px solid #c7c4bc;}
