@@ -48,6 +48,8 @@
     </nav>
     <!-- NAVBAR STARTS -->
     <%= yield %>
+    <div id="js-heightControl" style="height: 0;">&nbsp;</div>
+    
     <footer>
       <div class="container">
         <p>&copy; D-Radio 2018. All Rights Reserved.</p>
@@ -65,5 +67,10 @@
       </div>
     </footer>
     <%= javascript_include_tag 'application_postyield' %>
+<script>
+   $(function(){
+       $('#js-heightControl').css('height', $(window).height() - $('html').height() +'px');
+   });
+</script>
   </body>
 </html>
