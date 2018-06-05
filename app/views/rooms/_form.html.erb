@@ -1,3 +1,4 @@
+<div class="modal-body">
 <%= form_with(model: room, local: true) do |form| %>
   <%# if room.errors.any? %>
     <!-- <div id="error_explanation">
@@ -15,4 +16,9 @@
   <!-- <div class="actions"> -->
     <%#= form.submit %>
   <!-- </div> -->
+</div>
+  <div class="modal-footer">
+        <button type="button" class="btn btn-danger text-black btn-sm" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-warning text-black btn-sm text-16">Create Room</button>
+      </div>
 <% end %>

@@ -135,13 +135,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      
       <%= render 'form', room: @room %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger text-black btn-sm" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-warning text-black btn-sm text-16">Create Room</button>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -156,8 +152,8 @@
 var link = api.getLoginURL();
 $('.connect').attr('href', link)
 
-console.log(link)
-api.me(function (err, res) {
-  console.log(err, res)
-});
+// console.log(link)
+// api.me(function (err, res) {
+//   console.log(err, res)
+// });
 </script>
