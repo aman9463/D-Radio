@@ -90,7 +90,8 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-LOGIN_URL = 'http://165.227.225.85/auth/login'
+LOGIN_URL = 'https://dradio.rjght.com/auth/login'
+# LOGIN_URL = 'http://165.227.225.85/auth/login'
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
