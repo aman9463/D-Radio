@@ -1,5 +1,5 @@
 <style type="text/css">
-    footer{position: absolute;
+footer{position: absolute;
     left: 0;
     bottom: 0;
     height: 100px;
@@ -13,50 +13,50 @@
     </div>
 </section>
 <div id="requirements">
-    </div>
+</div>
 <div class="col-md-12">
-<section id="roomContainer" class="cf">
-                <div class='peerContainer local'>
-                    <div class="local-details text-center padding-15">
-                        <!-- <input id="nickInput" placeholder="You"/> -->
+    <section id="roomContainer" class="cf">
+        <div class='peerContainer local'>
+            <div class="local-details text-center padding-15">
+                <!-- <input id="nickInput" placeholder="You"/> -->
 
-                        <audio id="localAudio" controls oncontextmenu="return false;" disabled></audio>
-                        <img id="snapshot" src="<%=current_user.profile_image%>" class="avatar avatar-image"/>
-                        <div class="">You</div>
-                        <div id="meters">
-      <div id="instant">
-        <p class="styled">
-            <progress  min="0" max="1" value=""></progress>
-        </p>
-        <div class="value" style="display: none;"></div>
-      </div>
+                <audio id="localAudio" controls oncontextmenu="return false;" disabled></audio>
+                <img id="snapshot" src="<%=current_user.profile_image%>" class="avatar avatar-image"/>
+                <div class="">You</div>
+                <div id="meters">
+                  <div id="instant">
+                    <p class="styled">
+                        <progress  min="0" max="0.3" value=""></progress>
+                    </p>
+                    <div class="value" style="display: none;"></div>
+                </div>
+            </div>
+            <video id="snapshotvideo" class="avatar"></video> 
+            <a class="btn btn-sm button-mute">Mute</a>
+            <div id='countdown'></div>
+            <!-- add class of 'muted' when so -->
+            
+
+        </div>
+
+        <div class="local-controls">
+            <!-- <button class="button button-small" id="snapshotButton">Take a snapshot</button> -->
+        </div>
     </div>
-                        <video id="snapshotvideo" class="avatar"></video> 
-                        <a class="btn btn-sm button-mute">Mute</a>
-                        <div id='countdown'></div>
-                        <!-- add class of 'muted' when so -->
-                        
+    <div id="remotes">
+        
+    </div>
+</section>
+</div>
 
-                    </div>
 
-                    <div class="local-controls">
-                        <!-- <button class="button button-small" id="snapshotButton">Take a snapshot</button> -->
-                    </div>
-                </div>
-                <div id="remotes">
-                    
-                </div>
-            </section>
-        </div>
-
-       
-        </div>
-      <script type="text/javascript">
+</div>
+<script type="text/javascript">
           // grab the room from the URL
-var room;
-room = "<%=params[:id]%>"
-var framed = window.self !== window.top;
-var hasroom = framed && document.referrer && document.referrer.split('?').length > 1;
+          var room;
+          room = "<%=params[:id]%>"
+          var framed = window.self !== window.top;
+          var hasroom = framed && document.referrer && document.referrer.split('?').length > 1;
 // if (framed) {
 //     room = document.referrer && document.referrer.split('?')[1];
 // } else {
@@ -222,22 +222,22 @@ function GUM() {
             alert('asfasf');
           if (peer.videoEl.muted) { // unmute
             mute.className = 'btn btn-sm button-mute';
-                mute.text('Mute');
+            mute.text('Mute');
           } else { // mute
             mute.className = 'btn btn-sm button-mute muted';
-             mute.text('Unmute');
-          }
-          peer.videoEl.muted = !peer.videoEl.muted;
-        };
+            mute.text('Unmute');
+        }
+        peer.videoEl.muted = !peer.videoEl.muted;
+    };
 
-        if (peer && peer.pc) {
-            peer.firsttime = true;
-            peer.pc.on('iceConnectionStateChange', function (event) {
-                var state = peer.pc.iceConnectionState;
-                container.className = 'text-center peerContainer p2p' +
-                    state.substr(0, 1).toUpperCase() +
-                    state.substr(1);
-                switch (state) {
+    if (peer && peer.pc) {
+        peer.firsttime = true;
+        peer.pc.on('iceConnectionStateChange', function (event) {
+            var state = peer.pc.iceConnectionState;
+            container.className = 'text-center peerContainer p2p' +
+            state.substr(0, 1).toUpperCase() +
+            state.substr(1);
+            switch (state) {
                 case 'connected':
                 case 'completed':
                     //audio.srcObject = peer.stream;
@@ -252,14 +252,14 @@ function GUM() {
                         });
                     }
                     break;
-                case 'closed':
+                    case 'closed':
                     container.remove();
                     break;
                 }
             });
-        }
-        remotes.appendChild(container);
-    });
+    }
+    remotes.appendChild(container);
+});
 
     webrtc.connection.on('message', function (message) {
         var peers = self.webrtc.getPeers(message.from, message.roomType);
@@ -334,8 +334,8 @@ $(document).ready(function(){
 // })
 
 // window.onload =  function(){
-   GUM();
-   callaudio();
+ GUM();
+ callaudio();
 });
 function createFields() {
     $('.field').remove();
@@ -351,8 +351,8 @@ function createFields() {
 function distributeFields() {
     var radius = 200;
     var fields = $('.field'), container = $('#container'),
-        width = container.width(), height = container.height(),
-        angle = 0, step = (2*Math.PI) / fields.length;
+    width = container.width(), height = container.height(),
+    angle = 0, step = (2*Math.PI) / fields.length;
     fields.each(function() {
         var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
         var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
@@ -374,4 +374,4 @@ $('input').change(function() {
 
 createFields();
 distributeFields();
-      </script>
+</script>

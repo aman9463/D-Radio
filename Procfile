@@ -1,1 +1,1 @@
-web:  /home/deploy/.rvm/wrappers/dradio/current/node node singnalmaster-master/server.js
+web:  /home/deploy/dradio/current/node node singnalmaster-master/server.js
