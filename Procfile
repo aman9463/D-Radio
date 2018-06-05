@@ -1,1 +1,1 @@
-web:  /home/deploy/dradio/current/node node singnalmaster-master/server.js
+node: node /home/deploy/current/node/signalmaster-master/server.js 
