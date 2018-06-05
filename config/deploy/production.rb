@@ -52,7 +52,7 @@ namespace :deploy do
     on roles(:app) do
       execute [
         "cd #{release_path} &&",
-        'export rvmsudo_secure_path=0 && ',
+        'export rvmsudo_secure_path=1 && ',
         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
         'rvmsudo',
         'RAILS_ENV=production bundle exec foreman export ./Procfile upstart /etc/init '
