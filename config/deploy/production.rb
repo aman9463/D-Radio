@@ -48,18 +48,19 @@ namespace :deploy do
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-  task :export do
+task :export do
+
     on roles(:app) do
       execute [
         "cd #{release_path} &&",
         'export rvmsudo_secure_path=0 && ',
         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
         'rvmsudo',
-        'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -l /var/log -f ./Procfile upstart /etc/init -m node=1, node2=1 –e environments/production.env'
-
+        'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -l /var/log -f ./Procfile upstart /etc/init -m faye=1,worker=1 –e environments/production.env'
       ].join(' ')
     end
-  end
+end
+
 
   after :publishing, :export
   after :publishing, :restart
