@@ -38,7 +38,7 @@ a.text-black,a.text-black:active,a.text-black:hover,a.text-black:visited,a.text-
 
 
  #center { width: 10px; height: 10px; position: absolute; left: 295px; top: 295px; background: #000; }
-}
+
 .field { width: 20px; height: 20px; position: absolute; background: #f00; }
 #crosshair-x { width: 600px; height: 1px; background: #000; position: absolute; left: 0; top: 300px; }
 #crosshair-y { width: 1px; height: 600px; background: #000; position: absolute; left: 300px; top: 0; }
