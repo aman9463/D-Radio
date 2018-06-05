@@ -1,0 +1,95 @@
+.margin-auto{margin:auto;}
+.font-pacifico{font-family: 'Pacifico', cursive!important;}
+.text-40{font-size: 40px!important;}
+.rslides li h1{font-size: 80px;}
+a.text-black,a.text-black:active,a.text-black:hover,a.text-black:visited,a.text-black:focus{color: #212529!important;}
+.features{background: url(/assets/banner-1.jpg);
+    background-size: cover;
+    background-position: 450% 100%;
+    padding-top:100px!important;
+    padding-bottom: 60px!important;
+  }
+  .text-10-rem{font-size: 10rem;}
+  .text-16{font-size: 16px;}
+  .padding-15{padding: 15px;}
+  .padding-20{padding: 20px;}
+  .padding-30{padding:30px;}
+    .padding-5{padding: 5px;}
+  }
+  .padding-20{padding: 20px;}
+    .padding-top-50{padding-top: 50px!important;}
+  .padding-bottom-50{padding-bottom: 50px;}
+  .circular{border-radius: 50%;
+}
+.font-bold{font-weight: bold;}
+.full-width{width: 100%;}
+.border-solid-1px-grey{border: 1px solid #c7c4bc;}
+.border-radius-4px{border-radius: 4px;}
+.no-margin{margin:0px;}
+.room-name{
+	font-weight: 500;
+	text-transform: capitalize;
+}
+.padding-top-100{padding-top: 100px;}
+.avatar-image{width: 200px;
+    height: 200px;
+    border-radius: 50%;}
+
+
+
+
+ #center { width: 10px; height: 10px; position: absolute; left: 295px; top: 295px; background: #000; }
+}
+.field { width: 20px; height: 20px; position: absolute; background: #f00; }
+#crosshair-x { width: 600px; height: 1px; background: #000; position: absolute; left: 0; top: 300px; }
+#crosshair-y { width: 1px; height: 600px; background: #000; position: absolute; left: 300px; top: 0; }
+
+meter,
+progress {
+  width: 100%;
+}
+
+.styled progress {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  height: 20px;
+
+  /* Firefox */
+  border: none;
+  background: #EEE;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+}
+
+.styled progress::-webkit-progress-bar {
+  background: #EEE;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  border-radius: 3px;
+}
+
+.styled progress::-webkit-progress-value {
+  background-color: #fdc73c;
+  border-radius: 3px;
+}
+
+.styled progress::-moz-progress-bar {
+  background-color: #CC0000;
+  border-radius: 3px;
+}
+
+.peerContainer{margin-right: 20px;margin-bottom: 20px;}
+footer{position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;}
+
+
+
+
+

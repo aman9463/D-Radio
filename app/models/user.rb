@@ -18,11 +18,13 @@ class User < ApplicationRecord
     res = User.fetch_data(token)
     
     if res['user'] == self.name
-    	profile_image =open(JSON.parse(res['account']['json_metadata'])['profile']['profile_image'])
+      if JSON.parse(res['account']['json_metadata'])['profile']['profile_image'] !=nil
+    	 profile_image =open(JSON.parse(res['account']['json_metadata'])['profile']['profile_image'])
+      end
     	# cover_image = open(JSON.parse(res['account']['json_metadata'])['profile']['cover_image'])
     	desc =JSON.parse(res['account']['json_metadata'])['profile']['about']
       # self.update(token: Digest::SHA256.hexdigest(token), desc: desc, profile_image: profile_image)
-      self.update(token: token, desc: desc, profile_image: profile_image)
+      self.update(token: token, desc: desc.present? ? desc : nil, profile_image: profile_image.present? ? profile_image : nil)
       true
     else
       false

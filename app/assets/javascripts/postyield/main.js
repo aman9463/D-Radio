@@ -12,9 +12,9 @@
 function  callaudio(){
 
 
-var instantMeter = document.querySelector('#instant meter');
-var slowMeter = document.querySelector('#slow meter');
-var clipMeter = document.querySelector('#clip meter');
+var instantMeter = document.querySelector('#instant progress');
+var slowMeter = document.querySelector('#slow progress');
+var clipMeter = document.querySelector('#clip progress');
 
 var instantValueDisplay = document.querySelector('#instant .value');
 var slowValueDisplay = document.querySelector('#slow .value');

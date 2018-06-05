@@ -1,33 +1,151 @@
-<p id="notice"><%= notice %></p>
+<header id="download" class="masthead">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-7 my-auto">
+            <div class="header-content mx-auto">
+              <h1 class="mb-5 font-pacifico">D-Radio
+                
+              </h1>
+              <h2 class="mt-1 font-pacifico list-inline mb-5">online audio calling platform to share your thoughts in English and</h2>
+              <% if user_signed_in? %>
+              <a data-target="#create_room_modal" data-toggle="modal" class="btn btn-warning text-black btn-xl js-scroll-trigger">Create Your Room</a>
+              <!-- <a href="<%=new_room_path%>" class="btn btn-warning text-black btn-xl js-scroll-trigger">Create Your Room</a> -->
+              <% else %>
+              <a href="#download" class="btn btn-warning text-black btn-xl js-scroll-trigger connect">Sign up with steem</a>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-lg-5 my-auto text-center">
+                <ul class="rslides list-inline" id="slider1">
+                <li><h1 class="font-pacifico">Français</h1></li>
+                <li><h1 class="font-pacifico">ગુજરાતી</h1></li>
+                <li><h1 class="font-pacifico">客家话</h1></li>
+                <li><h1 class="font-pacifico">हिन्दी</h1></li>
+                <li><h1 class="font-pacifico">Italiano</h1></li>
+                <li><h1 class="font-pacifico">मराठी</h1></li>
+                <li><h1 class="font-pacifico">ਪੰਜਾਬੀ</h1></li>                
+              </ul>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<% if user_signed_in?%>
-<%=link_to 'sign out', destroy_user_session_path, method: :delete%>
-<% else %>
-<a href="" class="connect">sign in</a>
-<%end%>
-<h1>Rooms</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @rooms.each do |room| %>
-      <tr>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Room', new_room_path %>
+    <section id="features" class="download bg-primary text-center" id="download">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+            <h2 class="section-heading">About</h2>
+            <div class="col-md-8 margin-auto text-center">
+            <h3>D-RADIO is the project created to help those people writing and speaking about their life, culture and nationality in their language.</h3>
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    <section class="download rooms_section text-center padding-top-50" id="liverooms">
+          <div class="container ">
+            <div class="row">
+              <div class="col-md-12 mx-auto">
+                <h2 class="section-heading text-40 font-bold text-warning padding-bottom-50">Live Rooms</h2>
+                <div class="col-md-12 text-center margin-auto clearfix">
+                  <% @rooms.each do |room|%>
+                    <div class="col-md-3 pull-left">
+                      <a href="<%=room_path(room) %>">
+                      <div class="border-solid-1px-grey border-radius-4px">
+                          <div class="">
+                          <img src="/assets/default-room.jpg" class="full-width">
+                          
+                        </div>
+                        <div class="padding-15">
+                        <h3 class="room-name text-16 no-margin text-warning">
+                            <%= room.name%>
+                          </h3>
+                        </div>
+                        </div>
+                    </a>
+                    </div>
+                  <% end %>
+              </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+    <section class="features">
+      <div class="container">
+        <div class="section-heading text-center text-white">
+          <h2>D-Radio, Fun Radio</h2>
+          <p class="text-white">Check out what you can do with the D-Radio!</p>
+          <hr>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-4 my-auto">
+            <div class="">
+            </div>
+              
+          </div>
+          <div class="col-lg-8 my-auto">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="feature-item ">
+                    <i class="icon-support text-primary"></i>
+                    <h3>Account Support</h3>
+                    <p class="text-muted">Will get support to help you speak with others from the team</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                    <i class="icon-camrecorder text-primary"></i>
+                    <h3>Recordings</h3>
+                    <p class="text-muted">Upload/Download your recordings</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                    <i class="icon-notebook text-primary"></i>
+                    <h3>Brief About Talk</h3>
+                    <p class="text-muted">Adding Pictures and a Short Description about what they are talking</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                    <i class="icon-globe text-primary"></i>
+                    <h3>World Wide</h3>
+                    <p class="text-muted">multiple language with all types of people</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Modal -->
+<div class="modal fade" id="create_room_modal" tabindex="-1" role="dialog" aria-labelledby="create_room_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-background">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <%= render 'form', room: @room %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger text-black btn-sm" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-warning text-black btn-sm text-16">Create Room</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%#= link_to 'New Room', new_room_path %>
 
 <script type="text/javascript">
   let api = sc2.Initialize({

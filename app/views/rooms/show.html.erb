@@ -1,51 +1,47 @@
 
-
-        <div class="content cf">
-            <section>
-                <h1>SimpleWebRTC</h1>
-                <h3>Use Edge's ORTC API and the WebRTC APIs in Chrome and Firefox to make cross-browser conference calls.</h3>
-                <div id="requirements">
-                    <p>To use this demo, you'll need the most recent version of the Edge browser, Chrome or Firefox , and a microphone attached to your Windows 10 device.</p>
-                </div>
-                <div id="supportWarning" class="block-note--error">
-                    <p>Warning - Your browser does not support the ORTC or WebRTC APIs. Please switch to a PC with a recent version of Windows 10 and try again.</p>
-                </div>
-                <div id="microphoneWarning" class="block-note--error">
-                    <p>Error - we can't find a microphone attached to your PC. Please switch to a PC with a microphone attached and try again.</p>
-                </div>
-            </section>
-            <section id="roomContainer" class="cf">
-                <h4 id="subtitle"></h4>
-               <!--  <form id="createRoom">
-                    <button disabled type="submit" class="button">Create conference</button>
-                </form> -->
-
+<section id="features" class="padding-30 padding-top-100 bg-primary full-height text-center" id="download">
+    <div class="share_room">
+        <h3>Please share this link to join the talk!</h3>
+        <h4><a href="<%=room_path(@room)%>" id="subtitle" class="text-white"></a></h4>
+    </div>
+</section>
+<div id="requirements">
+    </div>
+<div class="col-md-12">
+<section id="roomContainer" class="cf">
                 <div class='peerContainer local'>
-                    <div class="local-details">
-                        <input id="nickInput" placeholder="You"/>
-                        <audio id="localAudio" controls oncontextmenu="return false;" disabled></audio>
-                        <img id="snapshot" src="<%=current_user.profile_image%>" class="avatar"/>
-                        <video id="snapshotvideo" class="avatar"></video> 
-                        <div id='countdown'></div>
-                        <!-- add class of 'muted' when so -->
-                        <a class="button button-small button-mute">Mute</a>
+                    <div class="local-details text-center padding-15">
+                        <!-- <input id="nickInput" placeholder="You"/> -->
 
-                    </div>
-       <div id="meters">
+                        <audio id="localAudio" controls oncontextmenu="return false;" disabled></audio>
+                        <img id="snapshot" src="<%=current_user.profile_image%>" class="avatar avatar-image"/>
+                        <div class="">You</div>
+                        <div id="meters">
       <div id="instant">
-        <div class="label">Instant: </div>
-        <meter  min="0" max="0.5" value=""></meter>
+        <p class="styled">
+            <progress  min="0" max="1" value=""></progress>
+        </p>
         <div class="value" style="display: none;"></div>
       </div>
-    
     </div>
+                        <video id="snapshotvideo" class="avatar"></video> 
+                        <a class="btn btn-sm button-mute">Mute</a>
+                        <div id='countdown'></div>
+                        <!-- add class of 'muted' when so -->
+                        
+
+                    </div>
 
                     <div class="local-controls">
                         <!-- <button class="button button-small" id="snapshotButton">Take a snapshot</button> -->
                     </div>
                 </div>
-                <div id="remotes">sd</div>
+                <div id="remotes">
+                    
+                </div>
             </section>
+        </div>
+
        
         </div>
       <script type="text/javascript">
@@ -74,7 +70,7 @@ function track(name, info) {
 
 function setRoom(name) {
   
-    document.getElementById('subtitle').textContent =  'Link to join: ' + (framed ? document.referrer + (hasroom ? '' : '?' + name) : window.parent.location.href);
+    document.getElementById('subtitle').textContent =  'Join: ' + (framed ? document.referrer + (hasroom ? '' : '?' + name) : window.parent.location.href);
 }
 
 
@@ -147,7 +143,13 @@ function GUM() {
         btn.style.visibility = 'visible';
         btn.onclick = function() {
             track.enabled = !track.enabled;
-            btn.className = 'button button-small button-mute' + (track.enabled ? '' : ' muted');
+            btn.className = 'btn btn-sm button-mute' + (track.enabled ? '' : ' muted');
+            if (track.enabled){
+                $('.button-mute').text('Mute');
+            }
+            else{
+                $('.button-mute').text('Unmute');
+            }
         };
     });
 
@@ -185,35 +187,38 @@ function GUM() {
 
         // inner container
         var d = document.createElement('div');
-        d.className = 'remote-details';
+        d.className = 'remote-details padding-15';
         container.appendChild(d);
 
+        
+
+        // avatar profile_image
+        var avatar = document.createElement('img');
+        avatar.className = 'avatar-image';
+        avatar.src = '/assets/avatar-default.png';
+        d.appendChild(avatar);
         // // nickname
         var nickname = document.createElement('div');
         nickname.className = 'nick';
         d.appendChild(nickname);
-
-        // avatar profile_image
-        var avatar = document.createElement('img');
-        avatar.className = 'avatar';
-        avatar.src = '/assets/avatar-default.png';
-        d.appendChild(avatar);
-
         // audio element
         // inserted later
 
         // mute button
         var mute = document.createElement('a');
-        mute.className = 'button button-small button-mute';
+        mute.className = 'btn btn-sm button-mute';
         mute.appendChild(document.createTextNode('Mute'));
         // mute.style.visibility = 'hidden';
         // d.appendChild(mute);
 
         mute.onclick = function() {
+            alert('asfasf');
           if (peer.videoEl.muted) { // unmute
-            mute.className = 'button button-small button-mute';
+            mute.className = 'btn btn-sm button-mute';
+                mute.text('Mute');
           } else { // mute
-            mute.className = 'button button-small button-mute muted';
+            mute.className = 'btn btn-sm button-mute muted';
+             mute.text('Unmute');
           }
           peer.videoEl.muted = !peer.videoEl.muted;
         };
@@ -222,7 +227,7 @@ function GUM() {
             peer.firsttime = true;
             peer.pc.on('iceConnectionStateChange', function (event) {
                 var state = peer.pc.iceConnectionState;
-                container.className = 'peerContainer p2p' +
+                container.className = 'text-center peerContainer p2p' +
                     state.substr(0, 1).toUpperCase() +
                     state.substr(1);
                 switch (state) {
@@ -259,14 +264,15 @@ function GUM() {
         if (message.type === 'nickname') {
             container.querySelector('.nick').textContent = message.payload.nick;
         } else if (message.type === 'avatar') {
-            container.querySelector('.avatar').src = message.payload.avatar;
+            container.querySelector('.avatar-image').src = message.payload.avatar;
         } else if (message.type === 'offer') {
             // update things
-            if (nick) {
-                peer.send('nickname', {nick: nick});
-            }
+            
             if (avatar) {
                 peer.send('avatar', {avatar: avatar});
+            }
+            if (nick) {
+                peer.send('nickname', {nick: nick});
             }
         }
     });
@@ -323,5 +329,42 @@ $(document).ready(function(){
 // window.onload =  function(){
    GUM();
    callaudio();
-})
+});
+function createFields() {
+    $('.field').remove();
+    var container = $('#container');
+    for(var i = 0; i < +$('input:text').val(); i++) {
+        $('<div/>', {
+            'class': 'field',
+            'text': i + 1
+        }).appendTo(container);
+    }
+}
+
+function distributeFields() {
+    var radius = 200;
+    var fields = $('.field'), container = $('#container'),
+        width = container.width(), height = container.height(),
+        angle = 0, step = (2*Math.PI) / fields.length;
+    fields.each(function() {
+        var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
+        var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
+        if(window.console) {
+            console.log($(this).text(), x, y);
+        }
+        $(this).css({
+            left: x + 'px',
+            top: y + 'px'
+        });
+        angle += step;
+    });
+}
+
+$('input').change(function() {
+    createFields();
+    distributeFields();
+});
+
+createFields();
+distributeFields();
       </script>

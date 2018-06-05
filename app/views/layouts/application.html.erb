@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>DRadio</title>
@@ -6,15 +5,65 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <%= javascript_include_tag 'application' %>
-                    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> -->
-            <!-- <script src="https://webrtc.github.io/adapter/adapter-4.2.2.js"></script> -->
-
   </head>
 
-  <body >
+  <body id="page-top">
+    <!-- NAVBAR STARTS -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger font-pacifico" href="#page-top">
+          D Radio
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#features">ABOUT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#liverooms">Live Rooms</a>
+            </li>
+            <li class="nav-item">
+              <% if user_signed_in? %>
+                <%=link_to 'Sign Out', destroy_user_session_path, method: :delete ,class: 'nav-link js-scroll-trigger'%>
+              <% else %>
+                <a class="nav-link js-scroll-trigger connect" href="#contact">STEEM-LOGIN</a>
+              <%end%>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- NAVBAR STARTS -->
     <%= yield %>
-  <%= javascript_include_tag 'application_postyield' %>
-
+    <footer>
+      <div class="container">
+        <p>&copy; D-Radio 2018. All Rights Reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <%= javascript_include_tag 'application_postyield' %>
   </body>
 </html>

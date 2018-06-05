@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  # before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index]
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   # GET /rooms
@@ -7,6 +7,7 @@ class RoomsController < ApplicationController
   def index
     # byebug
     @rooms = Room.all
+    @room = Room.new
   end
 
   # GET /rooms/1

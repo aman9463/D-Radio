@@ -227,14 +227,14 @@ hr {
 /* Stream */
 
 .peerContainer.local {
-  width: 35%;
+  /*width: 35%;*/
   /*padding-bottom: 2em;*/
   float: left;
 }
 
 .local-details {
-  min-height: 208px;
-  margin-bottom: 15px;
+  /*min-height: 208px;*/
+  /*margin-bottom: 15px;*/
   padding: 5px;
   position: relative;
   border: 1px solid #e6eaed;
@@ -256,25 +256,27 @@ hr {
 }
 
 .button-mute {
-  width: 30px;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+    background-color: #ffc107;
+  /*width: 30px;*/
+  /*position: absolute;*/
+  /*bottom: 10px;*/
+/*  right: 10px;
   background: #828c8f url('/assets/icons.svg') no-repeat center 5px;
   text-indent: -9999em;
-  line-height: 1;
+  line-height: 1;*/
   visibility: hidden;
 }
 
 .button-mute.muted {
-  background-color: #ec008c;
+  background-color: #dc3545;
+  color: white!important;
   background-position: center -28px;
 }
 
 .local-controls {
   visibility: hidden;
   margin-top: 0;
-  padding: 15px 10px;
+  /*padding: 15px 10px;*/
   background: #f7f7f7;
   text-align: center;
 }
@@ -312,15 +314,15 @@ hr {
 /* Remote streams */
 
 #remotes {
-  width: 65%;
-  padding-left: 20px;
+  /*width: 65%;*/
+  /*padding-left: 20px;*/
   float: left;
 }
 
 #remotes .peerContainer {
-  width: calc(50% - 2px);
+  /*width: calc(50% - 2px);*/
   margin-top: 0;
-  margin-bottom: 6px;
+  /*margin-bottom: 6px;*/
   /*padding: 5px;*/
   float: left;
 }
