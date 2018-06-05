@@ -35,8 +35,8 @@ if (config.uid) process.setuid(config.uid);
 
 var httpUrl;
 if (config.server.secure) {
-    httpUrl = "http://165.227.225.85:" + port;
+    httpUrl = "http://dradio.rjght.com:" + port;
 } else {
-    httpUrl = "http://165.227.225.85:" + port;
+    httpUrl = "http://dradio.rjght.com:" + port;
 }
 console.log(yetify.logo() + ' -- signal master is running at: ' + httpUrl);
