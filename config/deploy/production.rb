@@ -63,4 +63,4 @@ namespace :deploy do
 
   after :publishing, :export
   after :publishing, :restart
-endsu
+end
