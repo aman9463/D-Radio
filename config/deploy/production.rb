@@ -55,7 +55,8 @@ namespace :deploy do
         'export rvmsudo_secure_path=1 && ',
         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
         'rvmsudo',
-        'RAILS_ENV=production bundle exec foreman export ./Procfile upstart /etc/init '
+        'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -l /var/log -f ./Procfile upstart /etc/init'
+
       ].join(' ')
     end
   end
