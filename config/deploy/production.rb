@@ -60,6 +60,6 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :export
+  # after :publishing, :export
   after :publishing, :restart
 end
