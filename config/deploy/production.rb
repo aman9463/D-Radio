@@ -52,7 +52,7 @@ namespace :deploy do
     on roles(:app) do
       execute [
         "cd #{release_path} &&",
-        'export rvmsudo_secure_path=1 && ',
+        'export rvmsudo_secure_path=0 && ',
         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
         'rvmsudo',
         'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -l /var/log -f ./Procfile upstart /etc/init'
@@ -63,4 +63,4 @@ namespace :deploy do
 
   after :publishing, :export
   after :publishing, :restart
-end
+endsu
