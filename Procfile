@@ -1,1 +1,1 @@
-faye: /home/deploy/.rvm/wrappers/default/bundle exec node node/signalmaster-master/server.js 
+worker:  /home/deploy/.rvm/wrappers/skwibble/bundle exec rake environment resque:work QUEUE='*' 
