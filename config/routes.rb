@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+    mount Resque::Server, :at => '/resque'
+	
 	root 'rooms#index'
   resources :rooms
  scope module: :users do
