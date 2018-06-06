@@ -12686,7 +12686,7 @@ function SimpleWebRTC(opts) {
     var options = opts || {};
     var config = this.config = {
             // url: 'https://sandbox.simplewebrtc.com:443/',
-            url: 'https://dradio.rjght.com:8888/',
+            url: 'https://dradio.rjght.com:443/',
             socketio: {/* 'force new connection':true*/},
             connection: null,
             debug: false,
