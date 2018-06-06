@@ -37,6 +37,6 @@ var httpUrl;
 if (config.server.secure) {
     httpUrl = "https://dradio.rjght.com";
 } else {
-    httpUrl = "https://dradio.rjght.com:";
+    httpUrl = "https://dradio.rjght.com";
 }
 console.log(yetify.logo() + ' -- signal master is running at: ' + httpUrl);
