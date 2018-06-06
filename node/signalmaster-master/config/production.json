@@ -1,7 +1,7 @@
 {
   "isDev": true,
   "server": {
-    "port": 443
+    "port": 8080
   },
   "rooms": {
     "/* maxClients */": "/* maximum number of clients per room. 0 = no limit */",
