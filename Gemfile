@@ -46,7 +46,7 @@ gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rvm', github: 'capistrano/rvm'
 gem 'capistrano-foreman'
 
-gem 'foreman'
+gem 'foreman', '0.84.0'
 gem 'resque', require: 'resque/server'
 gem 'resque-scheduler', '~> 2.5.5'
 group :development, :test do
