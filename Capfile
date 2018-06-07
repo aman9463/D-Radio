@@ -36,7 +36,19 @@ require "capistrano/bundler"
 require "capistrano/rails/assets"
 require "capistrano/rails/migrations"
 # require "capistrano/passenger"
+require 'capistrano/foreman'
 
+# Default settings
+set :rvm, false # Set to :rbenv for rbenv sudo, :rvm for rvmsudo or true for normal sudo
+set :foreman_roles, :all
+set :foreman_init_system, 'upstart'
+set :foreman_export_path, ->{ File.join(Dir.home, '.init') }
+set :foreman_app, -> { fetch(:application) }
+set :foreman_app_name_systemd, -> { "#{ fetch(:foreman_app) }.target" }
+set :foreman_options, ->{ {
+  app: application,
+  log: File.join(shared_path, 'log')
+} }
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }

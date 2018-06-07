@@ -44,6 +44,8 @@ gem 'capistrano', '~> 3.7', '>= 3.7.1'
 gem 'capistrano-rails', '~> 1.2'
 gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rvm', github: 'capistrano/rvm'
+gem 'capistrano-foreman'
+
 gem 'foreman'
 gem 'resque', require: 'resque/server'
 gem 'resque-scheduler', '~> 2.5.5'
