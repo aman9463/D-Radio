@@ -39,7 +39,7 @@ require "capistrano/rails/migrations"
 require 'capistrano/foreman'
 
 # Default settings
-set :rvm, false # Set to :rbenv for rbenv sudo, :rvm for rvmsudo or true for normal sudo
+set :rvm # Set to :rbenv for rbenv sudo, :rvm for rvmsudo or true for normal sudo
 set :foreman_roles, :all
 set :foreman_init_system, 'upstart'
 set :foreman_export_path, ->{ File.join(Dir.home, '.init') }
