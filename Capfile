@@ -43,10 +43,10 @@ set :rvm, false # Set to :rbenv for rbenv sudo, :rvm for rvmsudo or true for nor
 set :foreman_roles, :all
 set :foreman_init_system, 'upstart'
 set :foreman_export_path, ->{ File.join(Dir.home, '.init') }
-set :foreman_app, -> { fetch(:dradio) }
+set :foreman_app, -> { fetch(:application) }
 set :foreman_app_name_systemd, -> { "#{ fetch(:foreman_app) }.target" }
 set :foreman_options, ->{ {
-  app: application,
+  app: dradio,
   log: File.join(shared_path, 'log')
 } }
 
