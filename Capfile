@@ -46,7 +46,7 @@ set :foreman_export_path, ->{ File.join(Dir.home, '.init') }
 set :foreman_app, -> { fetch(:application) }
 set :foreman_app_name_systemd, -> { "#{ fetch(:foreman_app) }.target" }
 set :foreman_options, ->{ {
-  app: dradio,
+  app: 'dradio',
   log: File.join(shared_path, 'log')
 } }
 
