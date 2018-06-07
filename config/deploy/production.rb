@@ -48,7 +48,8 @@ namespace :deploy do
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
- task :export do
+
+  task :export do
     on roles(:app) do
       execute [
         "cd #{release_path} &&",
