@@ -92,7 +92,7 @@ namespace :deploy do
 
   # after :finishing, :cleanup
   after :publishing, :export
-  after :publishing, :start
+  after :publishing, :restart
 
  # after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
 end
