@@ -42,10 +42,22 @@ server '165.227.225.85', user: 'deploy', roles: %w{web app db node}
 
 namespace :deploy do
 
-  desc 'Restart application'
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     execute :touch, release_path.join('tmp/restart.txt')
+  #   end
+  # end
+
+    task :start do
+    on roles(:app) do
+      execute :sudo, "start dradio"
+    end
+  end
+
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :touch, release_path.join('tmp/restart.txt')
+    on roles(:app) do
+      execute :sudo, "restart dradio"
     end
   end
 
@@ -56,7 +68,7 @@ namespace :deploy do
         'export rvmsudo_secure_path=0 && ',
         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
         'rvmsudo',
-        'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -f ./Procfile upstart /etc/init/ -m worker=1 -e environments/production.env'
+        'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -f ./Procfile upstart /etc/init/ -m worker=1, node=1 -e environments/production.env'
       ].join(' ')
     end
   end
@@ -64,5 +76,5 @@ namespace :deploy do
 
 
   after :publishing, :export
-  after :publishing, :restart
+  after :publishing, :start
 end
