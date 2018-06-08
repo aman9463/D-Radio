@@ -42,14 +42,9 @@ server '165.227.225.85', user: 'deploy', roles: %w{web app db node}
 
 namespace :deploy do
 
-  # desc 'Restart application'
-  # task :restart do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     execute :touch, release_path.join('tmp/restart.txt')
-  #   end
-  # end
 
-    task :start do
+
+  task :start do
     on roles(:app) do
       execute :sudo, "start dradio"
     end
@@ -61,6 +56,28 @@ namespace :deploy do
     end
   end
 
+
+  # task :default do
+  #   update
+  #   assets.precompile
+  #   restart
+  #   cleanup
+  #   # etc
+  # end
+
+  # namespace :assets do
+  #  desc "Precompile assets locally and then rsync to deploy server"
+  #   task :precompile, :only => { :primary => true } do
+  #     run_locally "bundle exec rake assets:precompile"
+  #     servers = find_servers :roles => [:app], :except => { :no_release => true }
+  #     servers.each do |server|
+  #       run_locally "rsync -av ./public/#{assets_prefix}/ #{user}@#{server}:#{current_path}/public/#{assets_prefix}/"
+  #     end
+  #     run_locally "rm -rf public/#{assets_prefix}"
+  #   end
+  # end
+
+
   task :export do
     on roles(:app) do
       execute [
@@ -68,13 +85,14 @@ namespace :deploy do
         'export rvmsudo_secure_path=0 && ',
         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
         'rvmsudo',
-        'RAILS_ENV=production bundle exec foreman export --app dradio --user deploy -f ./Procfile upstart /etc/init/ -m worker=1, node=1 -e environments/production.env'
+        'RAILS_ENV=staging bundle exec foreman export --app dradio --user deploy -l /var/log -f ./Procfile upstart /etc/init -c worker=1 -e environments/staging.env'
       ].join(' ')
     end
   end
 
-
-
+  # after :finishing, :cleanup
   after :publishing, :export
   after :publishing, :start
+
+ # after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
 end
