@@ -50,9 +50,15 @@ namespace :deploy do
     end
   end
 
+  # task :restart do
+  #   on roles(:app) do
+  #     execute :sudo, "restart dradio"
+  #   end
+  # end
+ desc 'Restart application'
   task :restart do
-    on roles(:app) do
-      execute :sudo, "restart dradio"
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
