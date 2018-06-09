@@ -34,7 +34,8 @@ class RoomsController < ApplicationController
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
-        format.html { render :new }
+         flash[:warning] = 'Please try again!.' 
+        format.html { redirect_to root_path} 
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
@@ -72,6 +73,6 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.fetch(:room).permit(:name, :user_id)
+      params.fetch(:room).permit(:name, :user_id, :description)
     end
 end

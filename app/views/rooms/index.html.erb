@@ -50,8 +50,46 @@
                 <h2 class="section-heading text-40 font-bold text-warning padding-bottom-50">Live Rooms</h2>
                 <div class="col-md-12 text-center margin-auto clearfix">
                   <% @rooms.each do |room|%>
-                    <div class="col-md-3 pull-left">
-                      <a href= <% if user_signed_in? %> "<%=room_path(room) %>" <% else %> "#" <% end %>>
+                    <div class="col-md-4 pull-left">
+
+ <a href= <% if user_signed_in? %> "<%=room_path(room) %>" <% else %> "#" <% end %>>
+
+   <div class="card card-event card-clickable">
+        <div class="card-body">
+           <h3 class="room-name text-16 no-margin text-warning">
+                            <%= room.name%>
+                          </h3> 
+          <img src="/assets/default-room.jpg" class="full-width">  
+        </div>
+
+        <div class="clickable-button">
+          <a class="btn btn-floating btn-red initial-position floating-open">
+            <i class="fa fa-ellipsis-h text-white circle-icon"></i></a>
+          </div>
+
+          <div class="layered-content bg-red">
+            <div class="overflow-content">
+             <h3 class="room-name text-16 font-pacifico">
+                            <%= room.name%>
+                          </h3> 
+                          <p><%if room.description.present? %>
+                            <%= room.description%>
+                            <% else%>
+                            No descroption present!
+                            <% end %>
+                          </p>
+                          <p class="font-pacifico float-right"><%=room.user.name%></p>
+
+           </div>
+           <div class="clickable-close-button">
+            <a class="btn btn-floating initial-position floating-close"><i class="fa fa-close text-white"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </a>
+
+                    <!--   <a href= <% if user_signed_in? %> "<%=room_path(room) %>" <% else %> "#" <% end %>>
                       <div class="border-solid-1px-grey border-radius-4px">
                           <div class="">
                           <img src="/assets/default-room.jpg" class="full-width">
@@ -63,7 +101,7 @@
                           </h3>
                         </div>
                         </div>
-                    </a>
+                    </a> -->
                     </div>
                   <% end %>
               </div>
@@ -156,4 +194,25 @@ $('.connect').attr('href', link)
 // api.me(function (err, res) {
 //   console.log(err, res)
 // });
+ $('.floating-open').on('click', function () {
+      var $this = $(this);
+      $this.parents('.clickable-button').addClass('clicked');
+      $this.parents('.clickable-button').next('.layered-content').addClass('active');
+
+      setTimeout(function () {
+        $this.parents('.card-heading').css('overflow', 'hidden');
+      }, 100);
+
+    });
+
+    $('.floating-close').on('click', function () {
+      var $this = $(this);
+      $this.parents('.layered-content').prev('.clickable-button').removeClass('clicked');
+      $this.parents('.layered-content').removeClass('active');
+
+      setTimeout(function () {
+        $this.parents('.card-heading').css('overflow', 'initial');
+      }, 600);
+
+    });
 </script>

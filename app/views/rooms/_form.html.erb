@@ -12,11 +12,12 @@
     </div> -->
   <%# end %>
 <div class="lable">Room Name</div>
-<%= form.text_field :name,class: 'form-control' %>
-  <!-- <div class="actions"> -->
-    <%#= form.submit %>
-  <!-- </div> -->
+<%= form.text_field :name,class: 'form-control', required: true %>
+
+<div class="lable">Room Description</div>
+<%= form.text_area :description,class: 'form-control', rows: '10', required: true %>
 </div>
+
   <div class="modal-footer">
         <button type="button" class="btn btn-danger text-black btn-sm" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-warning text-black btn-sm text-16">Create Room</button>

@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :name
   validates_attachment_content_type :profile_image, content_type: /\Aimage\/.*\z/
 
-
+has_many :rooms
 
   def validate!(token)
     res = User.fetch_data(token)

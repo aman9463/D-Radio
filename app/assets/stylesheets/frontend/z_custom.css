@@ -1,5 +1,23 @@
 .margin-auto{margin:auto;}
-.font-pacifico{font-family: 'Pacifico', cursive!important;}
+
+
+
+@font-face {
+  font-family: 'Pacifico', cursive;
+
+  src: url('/assets/images/fonts/Pacifico/Pacifico-Regular.ttf');
+  src: url('/assets/images/fonts/Pacifico/Pacifico-Regular') format('truetype');
+
+font-weight: 400!important;
+}
+
+
+
+.font-pacifico{
+ font-family: 'Pacifico', cursive !important;
+
+
+}
 .text-40{font-size: 40px!important;}
 .rslides li h1{font-size: 80px;}
 a.text-black,a.text-black:active,a.text-black:hover,a.text-black:visited,a.text-black:focus{color: #212529!important;}
@@ -83,7 +101,9 @@ progress {
 .peerContainer{margin-right: 20px;margin-bottom: 20px;}
 
 
-
+.text-white{
+  color: #fff;
+}
 
 
 

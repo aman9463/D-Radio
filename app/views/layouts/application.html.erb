@@ -17,7 +17,7 @@
     <!-- NAVBAR STARTS -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger font-pacifico" href="#page-top" >
+        <a class="navbar-brand js-scroll-trigger font-pacifico" href="<%=root_path%>" >
           D Radio
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,6 +71,39 @@
    $(function(){
        $('#js-heightControl').css('height', $(window).height() - $('html').height() +'px');
    });
+</script>
+
+<script type="text/javascript">
+
+
+ <%- flash.each do |name, msg| -%>
+ <% if msg.is_a?(String) %>
+ $(document).ready(function() {
+  toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    showMethod: 'slideDown',
+    timeOut: 9000
+  };
+            // green
+            <% if name=="notice" %>
+            toastr.success('<%= msg %>');
+            // yellow
+            <% elsif name=="warning" %>
+            toastr.warning('<%= msg %>');
+            // red 
+            <% elsif name=="alert" %>
+            <% if msg.blank? %>
+            <% else %>
+            toastr.error('<%= msg %>'); 
+            <% end %>
+             //blue 
+             <% elsif name=="info" %>
+             toastr.info('<%= msg %>');
+             <% end %>
+           }); 
+ <%- end -%>
+ <% end %> 
 </script>
   </body>
 </html>
