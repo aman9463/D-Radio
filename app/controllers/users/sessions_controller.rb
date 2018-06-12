@@ -43,9 +43,9 @@ def custom_login
   @user.validate!(@user.token)
  resource = @user
    sign_in(resource_name, resource)
-  redirect_to :root, notice: 'saved'
+  redirect_to :root, notice: 'Thank you!'
     else
-  redirect_to :root, notice: 'not saved'
+  redirect_to :root, notice: 'Please try again!'
 
     end
 end

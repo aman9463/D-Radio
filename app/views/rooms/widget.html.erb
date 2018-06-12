@@ -1,0 +1,140 @@
+<style type="text/css">
+
+
+#dradio-widget {
+	bottom: 0;
+	color: #fff;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	left: 0;
+	/*position: absolute;*/
+	right: 0;
+	top: 0;
+}
+#dradio-widget .widget {
+	-ms-flex: 1;
+	-ms-flex-direction: column;
+	-webkit-box-direction: normal;
+	-webkit-box-flex: 1;
+	-webkit-box-orient: vertical;
+	border-radius: 5px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+#dradio-widget .widget-header {
+	-ms-flex-align: center;
+	-ms-flex-negative: 0;
+	-webkit-box-align: center;
+	align-items: center;
+	background-color: #7289da;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-shrink: 0;
+	padding: 20px;
+}
+
+#dradio-widget .widget-footer {
+	-ms-flex-align: center;
+	-ms-flex-negative: 0;
+	-webkit-box-align: center;
+	-webkit-box-shadow: 0 -1px 18px rgba(0,0,0,.2), 0 -1px 0 rgba(0,0,0,.2);
+	align-items: center;
+	background-color: #1e2124;
+	box-shadow: 0 -1px 18px rgba(0,0,0,.2), 0 -1px 0 rgba(0,0,0,.2);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-shrink: 0;
+	min-height: 30px;
+	padding: 10px;}
+
+	.widget-footer > h6{
+		font-size: 10px !important;
+		text-align: center;
+		line-height: 16px;
+	}
+/*#dradio-widget .widget-body {
+    -ms-flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.2);
+    background-color: #1e2124;
+    background-image: url(/assets/db9fd9d….png),url(/assets/1c7d080….png);
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat,no-repeat;
+    background-size: 200px 180px,110px 130px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.2);
+    flex: 1;
+    overflow-y: scroll;
+    padding: 20px;
+    }*/
+  </style>
+  <div class="col-xs-12" style="width: 100%; height: 100%;overflow: hidden;">
+  	<div class="" style="width: 288px; position: relative;">
+  		<div id="dradio-widget">
+  			<div class="widget">
+
+  				<div class="widget-header" style="background-color: #ffbf43;">
+  					<div class="container text-center">
+  						<a class="navbar-brand js-scroll-trigger font-pacifico text-white" href="https://dradio.rjght.com">
+  							D Radio
+  						</a>
+  					</div>
+  				</div>
+
+  				<div class="rooms_section body">
+  					<div class="col-xs-12 text-center" style="padding: 20px; ">
+  						<h4 class="room-name text-16 no-margin text-warning" style="color: black !important;">
+  							<span class="font-pacifico">D-Radio Rooms</span>
+  						</h4>
+  					</div>
+  					<div class="col-xs-12" style="    max-height: 300px;
+  					overflow-y: scroll;">
+  					<% @rooms.each_with_index do |room, index|%>
+  					<div class="col-xs-12" style="padding: 20px;">
+  						<h4 class="room-name text-16 no-margin text-warning" style="color: black !important">
+
+  							<span><%=room.name%></span>
+  							<span class="pull-right"> 
+  								<%= link_to room_path(room), style: "color: black !important", target: '_blank' do %>
+  								<i class="fa fa-microphone "></i>
+  							</span>
+  							<% end %>
+  							<span class="pull-right" style="margin-right: 10px;"> 
+  								<i class="fa fa-info tool" data-toggle="tooltip" title="<%=room.description.present? ? truncate(room.description,:length => 50) : 'No information present'%>"></i></span>	
+  							</h4>
+  						</div>
+  						<% if !(index +1 == @rooms.count)%>
+  						<div style="border-bottom: 1px solid grey; width: 90%; margin: auto;"></div>
+  						<% end %> 
+  						<% end %> 
+  					</div>
+  				</div>
+
+  				<div class="widget-footer">
+  					<h6 class="font-pacifico" style="width: 100% !important;">ABOUT</h6>
+  					<h6 class="">
+  						D-RADIO is the project created to help those people writing and speaking about their life, culture and nationality in their language
+  					</h6>
+  				</div>
+
+  			</div>
+  		</div>
+  	</div>
+
+
+
+  	<script>
+  		$(document).ready(function(){
+  			$('[data-toggle="tooltip"]').tooltip();   
+
+  		});
+  	</script>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
     mount Resque::Server, :at => '/resque'
-	
+	get 'dradio_widget', to: 'rooms#widget', as: :widget
 	root 'rooms#index'
   resources :rooms
  scope module: :users do

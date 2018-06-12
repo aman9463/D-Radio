@@ -108,16 +108,7 @@ if (room) {
     setRoom(room);
     queryGum = true;
 } else {
-    room = generateRoomName();
-    document.querySelector('form#createRoom>button').disabled = false;
-    document.getElementById('createRoom').onsubmit = function () {
-        document.getElementById('createRoom').disabled = true;
-        document.querySelector('form#createRoom>button').textContent = 'Cresating conference...';
-        room = room.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
-        doJoin(room);
-        return false; 
-    };
-}
+ }
 
 function GUM() {
     webrtc = new SimpleWebRTC({
@@ -162,6 +153,7 @@ function GUM() {
 
     webrtc.on('readyToCall', function () {
         if (room) {
+            
             webrtc.joinRoom(room, function (err, res) {
                 if (err) return;
                 window.setTimeout(function () {

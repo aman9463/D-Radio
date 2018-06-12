@@ -297,6 +297,7 @@ DEPENDENCIES
   paperclip (~> 6.0.0)
   puma (~> 3.11)
   rails (~> 5.2.0)
+  redis
   resque
   resque-scheduler (~> 2.5.5)
   sass-rails (~> 5.0)

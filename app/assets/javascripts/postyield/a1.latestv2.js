@@ -12385,7 +12385,8 @@ var FileTransfer = require('filetransfer');
 
 // the inband-v1 protocol is sending metadata inband in a serialized JSON object
 // followed by the actual data. Receiver closes the datachannel upon completion
-var INBAND_FILETRANSFER_V1 = 'https://simplewebrtc.com/protocol/filetransfer#inband-v1';
+// var INBAND_FILETRANSFER_V1 = 'https://simplewebrtc.com/protocol/filetransfer#inband-v1';
+var INBAND_FILETRANSFER_V1 = '';
 
 function isAllTracksEnded(stream) {
     var isAllTracksEnded = true;
@@ -12686,7 +12687,8 @@ function SimpleWebRTC(opts) {
     var options = opts || {};
     var config = this.config = {
             // url: 'https://sandbox.simplewebrtc.com:443/',
-            url: 'https://dradio.rjght.com:8888/',
+            // url: 'https://dradio.rjght.com:8888/',
+            url: 'http://localhost:8888/',
             // url: 'https://dradio.rjght.com:8080/',
             socketio: {/* 'force new connection':true*/},
             connection: null,
