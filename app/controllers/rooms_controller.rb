@@ -4,8 +4,8 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    resource = User.first
-    sign_in(:user, resource)
+    # resource = User.first
+    # sign_in(:user, resource)
     # byebug
     @rooms = Room.all
     @room = Room.new

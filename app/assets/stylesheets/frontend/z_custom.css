@@ -105,5 +105,20 @@ progress {
   color: #fff;
 }
 
+.fil-tag{
+      padding: 5px;
+    font-size: 17px;
+    background: none;
+    color: #000;
+    display: block;
+        margin: 10px;
+}
 
+.fil-tag:hover{
+  color: #ffbf43;
+  background: #000;
+}
+.bg-change{
+  background-color: #ffc658 !important;
+}
 

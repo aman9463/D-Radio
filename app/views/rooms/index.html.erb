@@ -100,7 +100,7 @@
 
     </div>
   </div>
-<h1 class="font-pacifico text-center full-width" style="margin: 40px 0px 0px 0px;"><a href="#">View All Rooms</a></h1>
+<h1 class="font-pacifico text-center full-width" style="margin: 40px 0px 0px 0px;"><a href="<%=available_rooms_path%>">View All Rooms</a></h1>
 </div>
 </div>
 </section>
@@ -188,25 +188,5 @@
 // api.me(function (err, res) {
 //   console.log(err, res)
 // });
-$('.floating-open').on('click', function () {
-  var $this = $(this);
-  $this.parents('.clickable-button').addClass('clicked');
-  $this.parents('.clickable-button').next('.layered-content').addClass('active');
-
-  setTimeout(function () {
-    $this.parents('.card-heading').css('overflow', 'hidden');
-  }, 100);
-
-});
-
-$('.floating-close').on('click', function () {
-  var $this = $(this);
-  $this.parents('.layered-content').prev('.clickable-button').removeClass('clicked');
-  $this.parents('.layered-content').removeClass('active');
-
-  setTimeout(function () {
-    $this.parents('.card-heading').css('overflow', 'initial');
-  }, 600);
-
-});
+float_open();
 </script>

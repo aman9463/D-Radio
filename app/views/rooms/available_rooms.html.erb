@@ -1,23 +1,31 @@
 
-<div style="margin-top: 100px"></div>
-
-
-
-
-<div id="filters" class="button-group">
-  <button class="btn btn-primary" data-filter="*">show all</button>
-  <% @tag.each do |tag| %>
-  <button class="button" data-filter=".<%=tag.name%>"><%=tag.name%></button>
-  <% end %>
+<div style="margin-top: 70px; padding-top: 20px;" class="rooms_section">
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+      <h2 class="section-heading text-40 font-bold text-warning padding-bottom-50 text-center">Popular Live Rooms</h2>
+  </div>
 </div>
+<div class="row">
 
+<div class="col-sm-12 col-xs-12 col-md-3 col-lg-2">
 
-
+  <h4 style="margin-left: 10px;">All Tags</h4>
+<div id="filters" class="button-group set_height" style="overflow: scroll;">
+  <% @tag.each do |tag| %>
+  <button class="button fil-tag" data-filter=".<%=tag.name%>"><%=tag.name%></button>
+  <% end %>
+  <button class="button fil-tag" data-filter="*" style="color: #ffbf43;">show all</button>
+</div>
+</div>
+<div class="col-sm-12 col-xs-12 col-md-9 col-lg-10">
 <div class="container ">
   <div class="row">
     <div class="col-md-12 mx-auto">
-      <h2 class="section-heading text-40 font-bold text-warning padding-bottom-50">Live Rooms</h2>
+    
       <div class="col-md-12 text-center margin-auto clearfix" id="posts">
+
+
+        <div class="no_room" style="display: none;">No Room for this tag</div>
         <% @rooms.each do |room|%>
         <%tag_arr = room.tags.collect{|a| a.name}.join(', ').gsub(",", " ")%>
           <div class="col-md-4 pull-left item <%=tag_arr.to_s %>">
@@ -75,7 +83,11 @@
 </div>
 </div>
 
+</div>
 
+
+</div>
+</div>
 
 
 
@@ -100,8 +112,39 @@
       var filterValue = $(this).attr('data-filter');
       $container.isotope({ filter: filterValue });
     });
+
+$container.on( 'layoutComplete',
+  function( event, laidOutItems ) {
+
+      if (laidOutItems.length == 0){
+        $('.no_room').show();
+      }
+      else
+      {
+        $('.no_room').hide();
+
+      }
+  }
+);
+
   });
 
 
 
 </script>
+
+
+<script type="text/javascript">
+   // window.onload = function(){
+// var b_h = $('body').height()
+// $('.set_height').css('height',b_h - 200);
+// }
+
+// $(window).resize(function(){
+// var b_h = $('body').height()
+// $('.set_height').css('height',b_h - 200);
+// });
+float_open();
+
+</script>
+

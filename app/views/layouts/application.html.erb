@@ -15,8 +15,11 @@
 
   <body id="page-top">
     <% if !current_page?(widget_path) %>
+    <% if current_page?(available_rooms_path) %>
+      <% nav_class = 'bg-change'%>
+      <% end %>
     <!-- NAVBAR STARTS -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top <%=nav_class%>" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger font-pacifico" href="<%=root_path%>" >
           D Radio
@@ -27,6 +30,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          <% if !current_page?(available_rooms_path) %>
+
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="<%=root_path%>">HOME</a>
             </li>
@@ -36,6 +41,7 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#liverooms">Live Rooms</a>
             </li>
+            <% end %>
             <li class="nav-item">
               <% if user_signed_in? %>
                 <%=link_to 'Sign Out', destroy_user_session_path, method: :delete ,class: 'nav-link js-scroll-trigger'%>
@@ -56,7 +62,7 @@
     <footer>
       <div class="container">
         <p>&copy; D-Radio 2018. All Rights Reserved.</p>
-        <ul class="list-inline">
+       <!--  <ul class="list-inline">
           <li class="list-inline-item">
             <a href="#">Privacy</a>
           </li>
@@ -66,7 +72,7 @@
           <li class="list-inline-item">
             <a href="#">FAQ</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </footer>
     <% end %>
