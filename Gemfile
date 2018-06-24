@@ -47,6 +47,7 @@ gem 'capistrano-rvm', github: 'capistrano/rvm'
 gem 'foreman'
 gem 'resque', require: 'resque/server'
 gem 'resque-scheduler', '~> 2.5.5'
+# gem "nested_form"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

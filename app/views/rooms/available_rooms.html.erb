@@ -1,0 +1,107 @@
+
+<div style="margin-top: 100px"></div>
+
+
+
+
+<div id="filters" class="button-group">
+  <button class="btn btn-primary" data-filter="*">show all</button>
+  <% @tag.each do |tag| %>
+  <button class="button" data-filter=".<%=tag.name%>"><%=tag.name%></button>
+  <% end %>
+</div>
+
+
+
+<div class="container ">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <h2 class="section-heading text-40 font-bold text-warning padding-bottom-50">Live Rooms</h2>
+      <div class="col-md-12 text-center margin-auto clearfix" id="posts">
+        <% @rooms.each do |room|%>
+        <%tag_arr = room.tags.collect{|a| a.name}.join(', ').gsub(",", " ")%>
+          <div class="col-md-4 pull-left item <%=tag_arr.to_s %>">
+            <div class=>
+           <a href= <% if user_signed_in? %> "<%=room_path(room) %>" <% else %> "#" <% end %>>
+             <div class="card card-event card-clickable">
+              <div class="card-body">
+               <h3 class="room-name text-16 no-margin text-warning">
+                <%= room.name%>
+              </h3> 
+              <img src="/assets/default-room.jpg" class="full-width">  
+            </div>
+
+            <div class="clickable-button">
+              <a class="btn btn-floating btn-red initial-position floating-open">
+                <i class="fa fa-ellipsis-h text-white circle-icon"></i></a>
+              </div>
+
+              <div class="layered-content bg-red">
+                <div class="overflow-content">
+                 <h3 class="room-name text-16 font-pacifico">
+                  <%= room.name%>
+                </h3> 
+                <p><%if room.description.present? %>
+                  <%= room.description%>
+                  <% else%>
+                  No descroption present!
+                  <% end %>
+                </p>
+                <p class="font-pacifico float-right"><%=room.user.name%></p><br>
+                <h3 class="room-name text-16 font-pacifico">
+                  Tags<br>
+                </h3>
+                <p>
+                  <% room.tags.each do |tag| %>
+                  <%=tag.name%>
+
+                  <% end %>
+                </p>
+              </div>
+              <div class="clickable-close-button">
+                <a class="btn btn-floating initial-position floating-close"><i class="fa fa-close text-white"></i></a>
+              </div>
+            </div>
+
+          </div>
+        </a>
+      </div>
+      </div>
+  <% end %>
+  </div>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    /* activate jquery isotope */
+    var $container = $('#posts').isotope({
+      itemSelector : '.item',
+      isFitWidth: true
+    });
+
+  // $(window).smartresize(function(){
+  //   $container.isotope({
+  //     columnWidth: '.col-sm-3'
+  //   });
+  // });
+  
+  $container.isotope({ filter: '*' });
+
+    // filter items on button click
+    $('#filters').on( 'click', 'button', function() {
+      var filterValue = $(this).attr('data-filter');
+      $container.isotope({ filter: filterValue });
+    });
+  });
+
+
+
+</script>

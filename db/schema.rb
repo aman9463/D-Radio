@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_03_123307) do
+ActiveRecord::Schema.define(version: 2018_06_20_174724) do
 
   create_table "friendly_id_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "slug", null: false
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2018_06_03_123307) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "room_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_tags_on_room_id"
+    t.index ["tag_id"], name: "index_room_tags_on_tag_id"
+  end
+
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -32,6 +41,13 @@ ActiveRecord::Schema.define(version: 2018_06_03_123307) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -58,5 +74,7 @@ ActiveRecord::Schema.define(version: 2018_06_03_123307) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  add_foreign_key "room_tags", "rooms", on_delete: :cascade
+  add_foreign_key "room_tags", "tags", on_delete: :cascade
   add_foreign_key "rooms", "users"
 end

@@ -1,13 +1,15 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :widget]
   before_action :set_room, only: [:show, :edit, :update, :destroy]
-
   # GET /rooms
   # GET /rooms.json
   def index
+    resource = User.first
+    sign_in(:user, resource)
     # byebug
     @rooms = Room.all
     @room = Room.new
+    # @tags = Tag.all.pluck(:name)
   end
 
   # GET /rooms/1
@@ -31,15 +33,17 @@ class RoomsController < ApplicationController
     @room.user_id = current_user.id
     respond_to do |format|
       if @room.save
+        #save tags
+        save_tags(@room.id)
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
-         flash[:warning] = 'Please try again!.' 
-        format.html { redirect_to root_path} 
-        format.json { render json: @room.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+       flash[:warning] = 'Please try again!.' 
+       format.html { redirect_to root_path} 
+       format.json { render json: @room.errors, status: :unprocessable_entity }
+     end
+   end
+ end
 
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
@@ -65,10 +69,32 @@ class RoomsController < ApplicationController
     end
   end
 
-def widget
+  def widget
+    @rooms = Room.all
+  end
+
+
+  def save_tags(room_id)
+    @room_tags = []
+    params[:tags].split.each do |tag|
+     result =  Tag.find_by_name(tag.downcase)
+     if result
+      @room_tags << result.id
+    else
+      new_tag = Tag.create(name: tag.downcase)
+      @room_tags << new_tag.id
+    end
+  end
+    @room_tags.map {|tag| RoomTag.create(room_id: room_id, tag_id: tag)}
+
+end
+
+def available_rooms
+  @tag = Tag.all
   @rooms = Room.all
 end
-  private
+
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
       @room = Room.friendly.find(params[:id])
@@ -78,4 +104,4 @@ end
     def room_params
       params.fetch(:room).permit(:name, :user_id, :description)
     end
-end
+  end

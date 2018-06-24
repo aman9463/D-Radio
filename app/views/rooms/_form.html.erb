@@ -16,6 +16,9 @@
 
 <div class="lable">Room Description</div>
 <%= form.text_area :description,class: 'form-control', rows: '10', required: true %>
+
+<div class="lable">Room Tags</div>
+<%= text_field_tag 'tags',nil,:multiple => true, class: 'form-control tag_class',required: true , data:{"role": "tagsinput"}%>
 </div>
 
   <div class="modal-footer">
@@ -26,3 +29,12 @@
 
 <!-- <iframe frameborder="0" src="https://discordapp.com/widget?id=335703116689440770&amp;theme=light" target="_parent" height="425px" name="" width="100%" style="position: relative; display: block; height: 425px; width: 100%;"></iframe> -->
 <!-- <iframe src="https://dradio.rjght.com//dradio_widget" width="300" height="700px" frameborder="0"></iframe> -->
+
+<script type="text/javascript">
+$('.tag_class').tagsinput({
+  trimValue: true,
+    allowDuplicates: false
+
+});
+
+</script>
