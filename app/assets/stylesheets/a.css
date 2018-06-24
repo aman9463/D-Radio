@@ -271,7 +271,7 @@ audio {
 
 /* mirroring for local snapshot */
 #snapshot {
-  transform: scaleX(-1)
+  /*transform: scaleX(-1)*/
 }
 
 #snapshotvideo {

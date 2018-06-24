@@ -76,7 +76,7 @@ class RoomsController < ApplicationController
 
   def save_tags(room_id)
     @room_tags = []
-    params[:tags].split.each do |tag|
+    params[:tags].split(",").each do |tag|
      result =  Tag.find_by_name(tag.downcase)
      if result
       @room_tags << result.id
